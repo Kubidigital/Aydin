@@ -207,7 +207,7 @@ export default function QuoteDetail({
 
   const mailto = contact?.email
     ? `mailto:${contact.email}?subject=${encodeURIComponent(`Votre devis ${quote.number}${quote.title ? " — " + quote.title : ""}`)}&body=${encodeURIComponent(
-        `Bonjour ${contact.first_name || ""},\n\nComme convenu, voici votre devis ${quote.number} d'un montant de ${formatEuro(quote.total)}.\n\nVous pouvez le consulter et le signer en ligne ici :\n${signUrl}\n\nJe reste à votre disposition pour toute question.\n\nBien cordialement,\n${[profile?.first_name, profile?.last_name].filter(Boolean).join(" ")}\n${profile?.company_name ?? ""}\n${profile?.phone ?? ""}`,
+        `Bonjour ${contact.first_name || ""},\n\nComme convenu, voici votre devis ${quote.number} d'un montant de ${formatEuro(quote.total)}.\n\nVous pouvez le consulter et le signer en ligne ici :\n${signUrl}\n\nJe reste à votre disposition pour toute question${profile?.booking_url ? ` ; vous pouvez aussi réserver un créneau ici : ${profile.booking_url}` : "."}\n\nBien cordialement,\n${[profile?.first_name, profile?.last_name].filter(Boolean).join(" ")}\n${profile?.company_name ?? ""}\n${profile?.phone ?? ""}`,
       )}`
     : null;
 
@@ -222,7 +222,7 @@ export default function QuoteDetail({
       <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <div className="flex flex-wrap items-center gap-3">
-            <h2 className="text-2xl font-bold tracking-tight text-white">Devis {quote.number}</h2>
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-white">Devis {quote.number}</h2>
             <StatusBadge list={QUOTE_STATUSES} value={quote.status} />
           </div>
           <p className="mt-1 text-sm text-slate-400">

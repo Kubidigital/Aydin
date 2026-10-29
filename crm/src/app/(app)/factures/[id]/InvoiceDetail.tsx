@@ -73,7 +73,7 @@ export default function InvoiceDetail({
       <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <div className="flex flex-wrap items-center gap-3">
-            <h2 className="text-2xl font-bold tracking-tight text-white">{INVOICE_KINDS[invoice.kind]} {invoice.number}</h2>
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-white">{INVOICE_KINDS[invoice.kind]} {invoice.number}</h2>
             <StatusBadge list={INVOICE_STATUSES} value={display} />
           </div>
           <p className="mt-1 text-sm text-slate-400">

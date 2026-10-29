@@ -62,7 +62,7 @@ export function PipelineChart({ data }: { data: DashboardData["pipeline"] }) {
               "Opportunités",
             ]}
           />
-          <Bar dataKey="count" name="Contacts" fill="#9085e9" radius={[0, 4, 4, 0]} maxBarSize={16} isAnimationActive={false}
+          <Bar dataKey="count" name="Contacts" fill="#3987e5" radius={[0, 4, 4, 0]} maxBarSize={16} isAnimationActive={false}
             label={{ position: "right", fill: "#94a3b8", fontSize: 11 }} />
         </BarChart>
       </ResponsiveContainer>

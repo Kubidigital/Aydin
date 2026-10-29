@@ -10,18 +10,19 @@ import { ErrorText, Field, PageHeader } from "@/components/ui";
 type Values = Omit<Profile, "id">;
 
 const DEFAULTS: Values = {
-  first_name: "",
-  last_name: "",
-  job_title: "",
+  first_name: "Kubilay",
+  last_name: "Aydin",
+  job_title: "Fondateur",
   company_name: "Digital Aydin",
   legal_status: "Entrepreneur individuel (EI)",
-  siret: "",
-  address: "",
-  postal_code: "",
-  city: "",
-  phone: "",
-  email: "",
-  website: "",
+  siret: "939 775 813 00016",
+  address: "54 rue du Maréchal Joffre",
+  postal_code: "67240",
+  city: "Bischwiller",
+  phone: "07 81 62 90 14",
+  email: "contact@digital-aydin.fr",
+  website: "https://digital-aydin.fr",
+  booking_url: "https://calendly.com/contact-digital-aydin/nouvelle-reunion",
   logo_url: "",
   iban: "",
   bic: "",
@@ -88,10 +89,13 @@ export default function SettingsForm({ userId, profile }: { userId: string; prof
       <Section icon={User} title="Vous" subtitle="Utilisé dans les e-mails et la signature des documents">
         <Field label="Prénom"><input className="input" {...text("first_name")} /></Field>
         <Field label="Nom"><input className="input" {...text("last_name")} /></Field>
-        <Field label="Fonction"><input className="input" placeholder="Webmaster" {...text("job_title")} /></Field>
+        <Field label="Fonction"><input className="input" placeholder="Fondateur" {...text("job_title")} /></Field>
         <Field label="Téléphone"><input className="input" {...text("phone")} /></Field>
         <Field label="E-mail professionnel"><input type="email" className="input" {...text("email")} /></Field>
         <Field label="Site web"><input className="input" placeholder="https://digital-aydin.fr" {...text("website")} /></Field>
+        <Field label="Lien de prise de rendez-vous (Calendly)" className="sm:col-span-2">
+          <input className="input" placeholder="https://calendly.com/…" {...text("booking_url")} />
+        </Field>
       </Section>
 
       <Section icon={Building2} title="Entreprise" subtitle="Mentions obligatoires sur les devis et factures">
@@ -138,7 +142,7 @@ function Section({ icon: Icon, title, subtitle, children }: { icon: React.Compon
   return (
     <section className="card card-pad">
       <div className="mb-5 flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-indigo-500 text-white"><Icon className="h-5 w-5" /></div>
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-accent-500 text-white"><Icon className="h-5 w-5" /></div>
         <div>
           <h3 className="font-semibold text-white">{title}</h3>
           <p className="text-sm text-slate-500">{subtitle}</p>

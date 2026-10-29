@@ -14,14 +14,33 @@ type OfferDraft = Omit<Offer, "id" | "created_at">;
 
 const EMPTY: OfferDraft = { name: "", description: "", category: "", unit: "forfait", unit_price: 0, is_recurring: false, active: true };
 
-/** Exemples de départ pour une agence web — modifiables après import. */
+/**
+ * Catalogue de départ reprenant les pôles de services de Digital Aydin.
+ * Pas de grille tarifaire publique (devis sur mesure) : les prix sont à 0 € et à compléter.
+ */
+const o = (category: string, name: string, description: string, unit = "forfait", is_recurring = false): OfferDraft =>
+  ({ name, description, category, unit, unit_price: 0, is_recurring, active: true });
+
 const STARTER: OfferDraft[] = [
-  { name: "Site vitrine", description: "Jusqu'à 5 pages, design sur mesure, responsive, formulaire de contact, optimisation SEO de base.", category: "Création de site", unit: "forfait", unit_price: 0, is_recurring: false, active: true },
-  { name: "Site e-commerce", description: "Boutique en ligne, catalogue produits, paiement sécurisé, gestion des commandes.", category: "Création de site", unit: "forfait", unit_price: 0, is_recurring: false, active: true },
-  { name: "Page supplémentaire", description: "Conception et intégration d'une page additionnelle.", category: "Création de site", unit: "page", unit_price: 0, is_recurring: false, active: true },
-  { name: "Référencement naturel (SEO)", description: "Audit, optimisation technique et contenus, suivi des positions.", category: "Référencement", unit: "mois", unit_price: 0, is_recurring: true, active: true },
-  { name: "Maintenance & hébergement", description: "Mises à jour, sauvegardes, sécurité, hébergement et nom de domaine.", category: "Maintenance", unit: "mois", unit_price: 0, is_recurring: true, active: true },
-  { name: "Fiche Google Business Profile", description: "Création et optimisation de la fiche d'établissement.", category: "Référencement", unit: "forfait", unit_price: 0, is_recurring: false, active: true },
+  o("Site Web & E-commerce", "Site vitrine sur mesure", "Conception 100 % sur mesure, responsive (ordinateur, tablette, mobile), formulaire de contact, sécurisation SSL et optimisation SEO de base."),
+  o("Site Web & E-commerce", "Landing page", "Page unique orientée conversion : accroche, preuves sociales, appel à l'action et formulaire."),
+  o("Site Web & E-commerce", "Boutique e-commerce WooCommerce", "Catalogue produits, paiement sécurisé, gestion des commandes et des stocks, pages légales."),
+  o("Site Web & E-commerce", "Page supplémentaire", "Conception et intégration d'une page additionnelle.", "page"),
+  o("Site Web & E-commerce", "Blog", "Mise en place d'un blog avec catégories et mise en forme optimisée pour le référencement."),
+  o("SEO & Visibilité", "Audit SEO", "Analyse technique (vitesse, mobile, balises), mots-clés et concurrence, avec plan d'actions priorisé."),
+  o("SEO & Visibilité", "Référencement naturel (SEO)", "Optimisation technique et contenus, mots-clés locaux, netlinking, suivi des positions.", "mois", true),
+  o("SEO & Visibilité", "Article de blog SEO", "Rédaction et optimisation d'un article ciblé sur une requête stratégique.", "unité"),
+  o("SEO & Visibilité", "Fiche Google Business Profile", "Création et optimisation de la fiche d'établissement pour le référencement local."),
+  o("SEO & Visibilité", "Campagnes Google Ads (SEA)", "Création et pilotage des campagnes, suivi des conversions et rapport mensuel.", "mois", true),
+  o("Réseaux sociaux & publicité", "Gestion des réseaux sociaux", "Animation de vos comptes (Facebook, Instagram, LinkedIn) : calendrier éditorial, visuels et textes.", "mois", true),
+  o("Réseaux sociaux & publicité", "Campagne Social Ads", "Publicités ciblées sur les réseaux sociaux avec analyse des performances et du ROI."),
+  o("Branding & Identité", "Logo", "Création de logo avec déclinaisons couleur, monochrome et formats web/impression."),
+  o("Branding & Identité", "Charte graphique", "Couleurs, typographies, règles d'usage et supports visuels pour une image de marque cohérente."),
+  o("Supports de communication", "Cartes de visite", "Conception graphique, fichiers prêts pour l'impression."),
+  o("Supports de communication", "Flyer / brochure", "Conception graphique d'un flyer ou d'une brochure, fichiers prêts pour l'impression."),
+  o("Logiciel & CRM", "Application web / outil métier", "Développement sur mesure : CRM, automatisations, outils internes.", "jour"),
+  o("Accompagnement & suivi", "Maintenance & sécurité", "Mises à jour, sauvegardes, surveillance, petites modifications.", "mois", true),
+  o("Accompagnement & suivi", "Formation à la gestion du site", "Prise en main de votre site pour être autonome sur vos contenus.", "heure"),
 ];
 
 export default function OffersCatalog({ offers }: { offers: Offer[] }) {
@@ -84,11 +103,11 @@ export default function OffersCatalog({ offers }: { offers: Offer[] }) {
           <EmptyState
             icon={Package}
             title="Votre catalogue est vide"
-            text="Ajoutez vos prestations (site vitrine, SEO, maintenance…) avec leurs tarifs, ou partez d'une base prête à compléter."
+            text="Ajoutez vos prestations avec leurs tarifs, ou importez vos services Digital Aydin (site, SEO, branding, CRM…) puis renseignez vos prix."
             action={
               <div className="flex flex-wrap justify-center gap-2">
                 <button className="btn-secondary" onClick={importStarter} disabled={saving}>
-                  {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />} Importer des exemples
+                  {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />} Importer mes services
                 </button>
                 <button className="btn-primary" onClick={() => open("new")}><Plus className="h-4 w-4" /> Nouvelle offre</button>
               </div>
@@ -142,8 +161,8 @@ export default function OffersCatalog({ offers }: { offers: Offer[] }) {
               <input type="number" min={0} step="0.01" className="input" value={draft.unit_price} onChange={(e) => setDraft({ ...draft, unit_price: Number(e.target.value) })} />
             </Field>
             <div className="flex flex-col justify-end gap-2 pb-1 text-sm text-slate-300">
-              <label className="flex items-center gap-2"><input type="checkbox" className="accent-[#7c5cff]" checked={draft.is_recurring} onChange={(e) => setDraft({ ...draft, is_recurring: e.target.checked })} /> Récurrent</label>
-              <label className="flex items-center gap-2"><input type="checkbox" className="accent-[#7c5cff]" checked={draft.active} onChange={(e) => setDraft({ ...draft, active: e.target.checked })} /> Active</label>
+              <label className="flex items-center gap-2"><input type="checkbox" className="accent-[#0B4FD8]" checked={draft.is_recurring} onChange={(e) => setDraft({ ...draft, is_recurring: e.target.checked })} /> Récurrent</label>
+              <label className="flex items-center gap-2"><input type="checkbox" className="accent-[#0B4FD8]" checked={draft.active} onChange={(e) => setDraft({ ...draft, active: e.target.checked })} /> Active</label>
             </div>
           </div>
           <ErrorText error={error} />

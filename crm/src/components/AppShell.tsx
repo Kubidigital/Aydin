@@ -86,7 +86,7 @@ export default function AppShell({
             className={cn(
               "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition",
               active
-                ? "bg-gradient-to-r from-brand-500/20 to-indigo-500/10 text-white ring-1 ring-inset ring-brand-400/20"
+                ? "bg-gradient-to-r from-brand-500/20 to-accent-500/10 text-white ring-1 ring-inset ring-brand-400/20"
                 : "text-slate-400 hover:bg-white/[0.04] hover:text-slate-100",
               compact && "justify-center px-0",
             )}
@@ -101,7 +101,7 @@ export default function AppShell({
 
   const brand = (compact: boolean) => (
     <Link href="/" className={cn("flex h-16 items-center gap-3 border-b border-white/[0.06] px-5", compact && "justify-center px-0")}>
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-indigo-500 text-sm font-bold text-white shadow-glow">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-accent-500 text-sm font-bold text-white shadow-glow">
         DA
       </div>
       {!compact && <span className="truncate font-semibold text-white">{companyName}</span>}
@@ -163,7 +163,7 @@ export default function AppShell({
               <Plus className="h-4 w-4" /> Nouveau devis
             </Link>
             <Link href="/parametres" className="flex items-center gap-2 rounded-xl px-2 py-1.5 hover:bg-white/[0.04]">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-indigo-500 text-xs font-semibold text-white">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-accent-500 text-xs font-semibold text-white">
                 {userName.slice(0, 1).toUpperCase() || "?"}
               </span>
               <span className="hidden text-sm text-slate-300 md:inline">{userName}</span>

@@ -110,7 +110,7 @@ export default function SignaturePanel({ token, total }: { token: string; total:
           />
         </div>
         <label className="flex items-start gap-3 text-sm text-slate-300">
-          <input type="checkbox" className="mt-0.5 h-4 w-4 accent-[#7c5cff]" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
+          <input type="checkbox" className="mt-0.5 h-4 w-4 accent-[#0B4FD8]" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
           Bon pour accord. J&apos;ai lu et j&apos;accepte le devis, ses conditions et, le cas échéant, le versement de l&apos;acompte prévu.
         </label>
         <ErrorText error={error} />

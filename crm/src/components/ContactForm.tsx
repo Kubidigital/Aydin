@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { CONTACT_TYPES, SOURCES, STAGES } from "@/lib/constants";
+import { CONTACT_TYPES, SECTORS, SOURCES, STAGES } from "@/lib/constants";
 import type { Contact } from "@/lib/types";
 import { ErrorText, Field } from "./ui";
 
@@ -124,11 +124,13 @@ export default function ContactForm({
             {SOURCES.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
         </Field>
-        <Field label="Secteur d'activité"><input className="input" placeholder="Coiffure, BTP, restauration…" value={values.sector} onChange={(e) => set("sector", e.target.value)} /></Field>
+        <Field label="Secteur d'activité"><input className="input" list="sectors" placeholder="Plâtrerie, électricité, bien-être…" value={values.sector} onChange={(e) => set("sector", e.target.value)} />
+          <datalist id="sectors">{SECTORS.map((s) => <option key={s} value={s} />)}</datalist>
+        </Field>
         <Field label="Valeur estimée (€)">
           <input type="number" min={0} step="1" className="input" value={values.estimated_value} onChange={(e) => set("estimated_value", Number(e.target.value))} />
         </Field>
-        <Field label="Étiquettes (séparées par des virgules)"><input className="input" placeholder="site vitrine, SEO" value={tagsText} onChange={(e) => setTagsText(e.target.value)} /></Field>
+        <Field label="Étiquettes (séparées par des virgules)"><input className="input" placeholder="site vitrine, SEO, Bas-Rhin" value={tagsText} onChange={(e) => setTagsText(e.target.value)} /></Field>
         <Field label="Prochaine action"><input className="input" placeholder="Rappeler pour la maquette" value={values.next_action} onChange={(e) => set("next_action", e.target.value)} /></Field>
         <Field label="Date de la prochaine action">
           <input type="date" className="input" value={values.next_action_date ?? ""} onChange={(e) => set("next_action_date", e.target.value || null)} />

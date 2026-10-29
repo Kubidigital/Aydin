@@ -19,6 +19,7 @@ export interface Profile {
   phone: string;
   email: string;
   website: string;
+  booking_url: string;
   logo_url: string;
   iban: string;
   bic: string;

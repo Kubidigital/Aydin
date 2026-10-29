@@ -62,7 +62,7 @@ export default async function DashboardPage() {
         />
         <KpiCard
           icon={FileSignature}
-          gradient="from-brand-500 to-indigo-500"
+          gradient="from-brand-500 to-accent-500"
           label="CA signé (devis acceptés)"
           value={formatEuroShort(d.signedYear)}
           hint={`Panier moyen ${formatEuroShort(d.averageDeal)}`}
@@ -184,7 +184,7 @@ function KpiCard({ icon: Icon, gradient, label, value, hint, alert }: {
       <div className={cn("mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-lg", gradient)}>
         <Icon className="h-5 w-5" />
       </div>
-      <p className="text-3xl font-bold tracking-tight text-white">{value}</p>
+      <p className="font-display text-3xl font-semibold tracking-tight text-white">{value}</p>
       <p className="mt-1 text-sm text-slate-400">{label}</p>
       <p className={cn("mt-3 text-xs", alert ? "text-rose-300" : "text-slate-500")}>{hint}</p>
     </div>
@@ -220,7 +220,7 @@ function GoalStat({ revenue, goal, progress }: { revenue: number; goal: number; 
               {progress} % <span className="text-xs font-normal text-slate-500">· {formatEuroShort(revenue)} / {formatEuroShort(goal)}</span>
             </p>
             <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/[0.06]" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}>
-              <div className="h-full rounded-full bg-gradient-to-r from-brand-500 to-indigo-400" style={{ width: `${progress}%` }} />
+              <div className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-300" style={{ width: `${progress}%` }} />
             </div>
           </>
         )}

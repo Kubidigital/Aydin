@@ -11,7 +11,7 @@ Stack : **Next.js 15** (App Router) · **Supabase** (base PostgreSQL, authentifi
 | **Tableau de bord** | CA encaissé et signé, montants à encaisser et factures en retard, taux de transformation des devis, panier moyen, objectif mensuel, graphique du CA sur 12 mois, pipeline par étape, devis en attente, prochaines relances, activité récente |
 | **Contacts** | Recherche, filtres par type et par étape, tri, fiche complète (coordonnées, SIRET, source, secteur, étiquettes, valeur estimée, prochaine action) |
 | **Fiche client** | **Documents du client** (glisser-déposer : contrats, cahiers des charges, logos, maquettes, jusqu'à 50 Mo par fichier, stockage privé), devis et factures liés, historique (notes, appels, e-mails, rendez-vous), changement d'étape en un clic |
-| **Pipeline** | Kanban en glisser-déposer : Nouveau lead → Contacté → Qualifié → Devis envoyé → Négociation → Gagné / Perdu |
+| **Pipeline** | Kanban en glisser-déposer : Nouveau lead → RDV découverte → Qualifié → Devis envoyé → Négociation → Gagné / Perdu |
 | **Mes offres** | Catalogue de prestations (prix, unité, récurrent ou non), avec des exemples à importer |
 | **Devis** | Éditeur ligne par ligne avec insertion depuis le catalogue, remise, acompte, aperçu en direct, numérotation automatique `DEV-2026-0001`, **export PDF**, duplication |
 | **Signature en ligne** | Lien personnel envoyé au client, qui signe à la main sur l'écran (ordinateur ou téléphone) ou refuse le devis. Une fois signé, le devis passe en « Accepté » et le contact devient client, automatiquement |
@@ -23,7 +23,9 @@ Stack : **Next.js 15** (App Router) · **Supabase** (base PostgreSQL, authentifi
 ### 1. Créer le projet Supabase
 
 1. Créez un projet gratuit sur [supabase.com](https://supabase.com).
-2. Ouvrez **SQL Editor**, collez le contenu de [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql), puis cliquez sur **Run**. Le script crée les tables, la sécurité (chaque compte ne voit que ses propres données), le bucket privé `contact-files` et les fonctions de signature.
+2. Ouvrez **SQL Editor** et exécutez, **dans l'ordre**, chacun des deux scripts (coller le contenu, puis **Run**) :
+   - [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql) crée les tables, la sécurité (chaque compte ne voit que ses propres données), le bucket privé `contact-files` et les fonctions de signature ;
+   - [`supabase/migrations/0002_digital_aydin.sql`](supabase/migrations/0002_digital_aydin.sql) pré-remplit vos informations : Kubilay Aydin, SIRET 939 775 813 00016, Bischwiller, téléphone, site et lien Calendly.
 3. Allez dans **Authentication → Users → Add user** et créez votre compte (e-mail + mot de passe, cochez *Auto Confirm User*).
    > L'inscription publique n'est pas proposée dans l'application : seuls les comptes que vous créez ici peuvent se connecter. Pensez aussi à désactiver *Allow new users to sign up* dans **Authentication → Sign In / Providers**.
 
@@ -39,13 +41,23 @@ npm run dev
 Les valeurs `NEXT_PUBLIC_SUPABASE_URL` et `NEXT_PUBLIC_SUPABASE_ANON_KEY` se trouvent dans **Supabase → Project Settings → API**.
 `NEXT_PUBLIC_SITE_URL` est l'adresse publique du CRM, utilisée pour construire les liens de signature envoyés aux clients.
 
-Ouvrez http://localhost:3000, connectez-vous, puis commencez par **Paramètres** (SIRET, adresse, IBAN, logo) et **Mes offres**.
+Ouvrez http://localhost:3000 et connectez-vous. Ensuite :
+- **Paramètres** : vos informations sont déjà remplies. Ajoutez votre **IBAN** et l'URL de votre logo, et vérifiez l'e-mail affiché sur les documents.
+- **Mes offres** : cliquez sur **Importer mes services** pour charger vos 19 prestations (site vitrine, WooCommerce, SEO, Google Ads, réseaux sociaux, logo, CRM, maintenance…), puis renseignez vos prix.
 
-### 3. Mise en ligne (Vercel conseillé)
+### 3. Mise en ligne sur Vercel
 
-1. Importez le dépôt sur [vercel.com](https://vercel.com) et choisissez `crm` comme *Root Directory*.
-2. Ajoutez les 3 variables d'environnement, avec `NEXT_PUBLIC_SITE_URL=https://crm.digital-aydin.fr` (ou votre domaine).
-3. Dans Supabase, sous **Authentication → URL Configuration**, indiquez la même URL comme *Site URL*.
+1. Sur [vercel.com](https://vercel.com), connectez-vous avec GitHub, puis **Add New → Project**, et importez le dépôt `kubidigital/aydin`.
+2. **Root Directory** : cliquez sur *Edit* et choisissez `crm`. Vercel détecte Next.js automatiquement.
+3. **Environment Variables** : ajoutez les 3 variables :
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `NEXT_PUBLIC_SITE_URL`, avec l'adresse finale, par exemple `https://crm.digital-aydin.fr`
+4. Cliquez sur **Deploy**.
+5. **Domaine** : dans Vercel, *Settings → Domains*, ajoutez `crm.digital-aydin.fr`. Vercel indique ensuite un enregistrement **CNAME** (`cname.vercel-dns.com`) à créer dans la zone DNS de `digital-aydin.fr` (chez o2switch : cPanel → *Zone Editor*).
+6. Dans Supabase, *Authentication → URL Configuration*, mettez la même adresse dans *Site URL*.
+
+À chaque `git push` sur la branche de production, Vercel redéploie automatiquement.
 
 ## Utilisation au quotidien
 
@@ -56,6 +68,9 @@ Ouvrez http://localhost:3000, connectez-vous, puis commencez par **Paramètres**
 5. **PDF** : bouton *PDF*, puis « Enregistrer au format PDF » dans la fenêtre d'impression du navigateur.
 
 ## Bon à savoir
+
+- **Charte graphique** : Encre noire `#050B1F`, Azur royal `#0B4FD8`, Bordeaux / Amarante `#4C0B1E` / `#741A36`, polices Fraunces (titres) et Manrope (texte). Les couleurs sont définies dans `tailwind.config.ts`.
+- **E-mail du devis** : il contient le lien de signature et votre lien Calendly pour réserver un échange.
 
 - **Micro-entreprise** : aucun calcul de TVA, et la mention de l'art. 293 B s'affiche sur chaque document. Les conditions de facture par défaut comprennent les pénalités de retard et l'indemnité forfaitaire de 40 €.
 - **Numérotation** : les numéros de facture sont attribués côté base, dans l'ordre et sans doublon. Une facture émise ne peut plus être supprimée, seulement annulée. Seuls les brouillons peuvent être supprimés.

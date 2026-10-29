@@ -33,7 +33,7 @@ export default async function SignPage({ params }: { params: Promise<{ token: st
       <div className="mx-auto max-w-[820px] px-4">
         <div className="no-print mb-6">
           <p className="text-sm text-slate-400">{profile?.company_name} vous a transmis un devis</p>
-          <h1 className="text-2xl font-bold text-white">Devis {quote.number} · {formatEuro(quote.total)}</h1>
+          <h1 className="font-display text-2xl font-semibold text-white">Devis {quote.number} · {formatEuro(quote.total)}</h1>
           {quote.status === "accepte" && (
             <Banner icon={CheckCircle2} className="border-emerald-500/30 bg-emerald-500/10 text-emerald-200">
               Devis signé le {formatDate(quote.signed_at)} par {quote.signer_name}. Merci pour votre confiance !

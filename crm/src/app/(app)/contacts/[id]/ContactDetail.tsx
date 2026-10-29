@@ -80,7 +80,7 @@ export default function ContactDetail({
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center">
         <Avatar text={initials(contact)} className="h-14 w-14 text-base" />
         <div className="min-w-0 flex-1">
-          <h2 className="truncate text-2xl font-bold tracking-tight text-white">{contactName(contact)}</h2>
+          <h2 className="truncate font-display text-2xl font-semibold tracking-tight text-white">{contactName(contact)}</h2>
           <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-slate-400">
             {contact.company && contact.company !== contactName(contact) && <span>{contact.company}</span>}
             {contact.job_title && <span>· {contact.job_title}</span>}

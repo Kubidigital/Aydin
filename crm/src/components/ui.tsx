@@ -87,7 +87,7 @@ export function PageHeader({ title, subtitle, actions }: { title: string; subtit
   return (
     <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight text-white">{title}</h2>
+        <h2 className="font-display text-2xl font-semibold tracking-tight text-white">{title}</h2>
         {subtitle && <p className="mt-1 text-sm text-slate-400">{subtitle}</p>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
@@ -97,7 +97,7 @@ export function PageHeader({ title, subtitle, actions }: { title: string; subtit
 
 export function Avatar({ text, className }: { text: string; className?: string }) {
   return (
-    <span className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500/80 to-indigo-500/80 text-xs font-semibold text-white", className)}>
+    <span className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500/80 to-accent-500/80 text-xs font-semibold text-white", className)}>
       {text}
     </span>
   );

@@ -44,7 +44,7 @@ export default function DocumentPaper({
             // eslint-disable-next-line @next/next/no-img-element
             <img src={p.logo_url} alt={p.company_name ?? "Logo"} className="mb-3 max-h-16 max-w-[180px] object-contain" />
           ) : (
-            <p className="mb-2 text-xl font-bold text-[#5b3df5]">{p.company_name || "Digital Aydin"}</p>
+            <p className="mb-2 font-display text-xl font-semibold text-[#050B1F]">{p.company_name || "Digital Aydin"}</p>
           )}
           {p.logo_url && <p className="font-semibold text-slate-900">{p.company_name}</p>}
           {owner && <p>{owner}{p.legal_status ? ` — ${p.legal_status}` : ""}</p>}
@@ -57,8 +57,8 @@ export default function DocumentPaper({
         </div>
 
         <div className="sm:text-right">
-          <p className="text-3xl font-bold uppercase tracking-tight text-slate-900">{data.docType}</p>
-          <p className="mt-1 font-medium text-[#5b3df5]">N° {data.number || "—"}</p>
+          <p className="font-display text-3xl font-semibold uppercase tracking-tight text-slate-900">{data.docType}</p>
+          <p className="mt-1 font-medium text-[#0B4FD8]">N° {data.number || "—"}</p>
           <p className="mt-3 text-slate-500">Date : <span className="text-slate-800">{formatLongDate(data.issue_date)}</span></p>
           {data.limit_date && (
             <p className="text-slate-500">{data.limit_label} : <span className="text-slate-800">{formatLongDate(data.limit_date)}</span></p>
@@ -140,7 +140,7 @@ export default function DocumentPaper({
           </div>
           {p.vat_mention && <p className="text-right text-[11px] text-slate-500">{p.vat_mention}</p>}
           {!!data.deposit_percent && data.deposit_percent > 0 && (
-            <div className="mt-2 flex justify-between rounded-lg bg-[#5b3df5]/10 px-3 py-2 text-[#3f25c9]">
+            <div className="mt-2 flex justify-between rounded-lg bg-[#0B4FD8]/10 px-3 py-2 text-[#0942b6]">
               <dt>Acompte à la signature ({data.deposit_percent} %)</dt>
               <dd className="font-semibold tabular-nums">{formatEuro(deposit)}</dd>
             </div>

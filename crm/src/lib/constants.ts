@@ -9,7 +9,7 @@ export const CONTACT_TYPES: { value: ContactType; label: string; badge: string }
 /** Étapes du pipeline commercial, dans l'ordre. */
 export const STAGES: { value: Stage; label: string; dot: string; open: boolean }[] = [
   { value: "nouveau", label: "Nouveau lead", dot: "bg-sky-400", open: true },
-  { value: "contacte", label: "Contacté", dot: "bg-indigo-400", open: true },
+  { value: "contacte", label: "RDV découverte", dot: "bg-indigo-400", open: true },
   { value: "qualifie", label: "Qualifié", dot: "bg-violet-400", open: true },
   { value: "proposition", label: "Devis envoyé", dot: "bg-amber-400", open: true },
   { value: "negociation", label: "Négociation", dot: "bg-orange-400", open: true },
@@ -50,7 +50,36 @@ export const ACTIVITY_KINDS: { value: ActivityKind; label: string }[] = [
   { value: "statut", label: "Statut" },
 ];
 
-export const SOURCES = ["Bouche-à-oreille", "Google / SEO", "Réseaux sociais", "Prospection", "Partenaire", "Salon / événement", "Autre"];
+export const SOURCES = [
+  "Site web (formulaire de devis)",
+  "Calendly",
+  "Chatbot / WhatsApp",
+  "Google / SEO",
+  "Avis Google",
+  "LinkedIn",
+  "Instagram",
+  "Bouche-à-oreille",
+  "Partenaire / réseau local",
+  "Prospection terrain",
+  "Autre",
+];
+
+/** Secteurs fréquents de la clientèle Digital Aydin (suggestions, saisie libre possible). */
+export const SECTORS = [
+  "Plâtrerie",
+  "Électricité",
+  "Rénovation",
+  "Menuiserie / ouvertures",
+  "Isolation",
+  "Coiffure / beauté",
+  "Sport / bien-être",
+  "Photographie",
+  "Commerce / retail",
+  "E-commerce",
+  "Restauration",
+  "Association",
+  "PME / startup",
+];
 
 export const UNITS = ["forfait", "heure", "jour", "page", "mois", "an", "unité"];
 
