@@ -15,6 +15,7 @@ import {
   Plus,
   Receipt,
   Settings,
+  Upload,
   Users,
   X,
 } from "lucide-react";
@@ -28,6 +29,7 @@ const NAV = [
   { href: "/devis", label: "Devis", icon: FileSignature },
   { href: "/factures", label: "Factures", icon: Receipt },
   { href: "/offres", label: "Mes offres", icon: Package },
+  { href: "/importer", label: "Importer", icon: Upload },
   { href: "/parametres", label: "Paramètres", icon: Settings },
 ];
 

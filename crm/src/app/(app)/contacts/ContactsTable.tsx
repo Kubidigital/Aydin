@@ -64,9 +64,12 @@ export default function ContactsTable({ contacts }: { contacts: Contact[] }) {
         title="Contacts"
         subtitle={`${contacts.length} contact(s) · ${countByType("client")} client(s)`}
         actions={
+          <>
+          <Link href="/importer" className="btn-secondary">Importer</Link>
           <button className="btn-primary" onClick={() => setCreating(true)}>
             <Plus className="h-4 w-4" /> Nouveau contact
           </button>
+          </>
         }
       />
 
