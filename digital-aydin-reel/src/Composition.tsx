@@ -220,6 +220,21 @@ const Outro: React.FC = () => {
           Digital Aydin
         </div>
       </div>
+      <TextReveal delay={88} size={46} weight={500} color="#C9D3F5">
+        <span
+          style={{
+            display: "inline-block",
+            padding: "18px 44px",
+            borderRadius: 999,
+            border: `2px solid ${BORDEAUX_LIGHT}`,
+            background: `${BORDEAUX}55`,
+            letterSpacing: "0.04em",
+            color: WHITE,
+          }}
+        >
+          digital-aydin.fr
+        </span>
+      </TextReveal>
     </AbsoluteFill>
   );
 };
